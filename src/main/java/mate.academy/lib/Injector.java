@@ -31,7 +31,7 @@ public class Injector {
                 ? interfaceImplementations.get(interfaceClazz)
                 : interfaceClazz;
 
-        if(instances.containsKey(clazz)) {
+        if (instances.containsKey(clazz)) {
             return instances.get(clazz);
         }
 
