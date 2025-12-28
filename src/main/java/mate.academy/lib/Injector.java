@@ -3,6 +3,8 @@ package mate.academy.lib;
 import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.Map;
+
+import mate.academy.service.FileReaderService;
 import mate.academy.service.ProductParser;
 import mate.academy.service.ProductService;
 import mate.academy.service.impl.FileReaderServiceImpl;
@@ -14,7 +16,7 @@ public class Injector {
 
     private final Map<Class<?>, Class<?>> interfaceImplementations = Map.of(
             ProductParser.class, ProductParserImpl.class,
-            FileReader.class, FileReaderServiceImpl.class,
+            FileReaderService.class, FileReaderServiceImpl.class,
             ProductService.class, ProductServiceImpl.class
     );
 
