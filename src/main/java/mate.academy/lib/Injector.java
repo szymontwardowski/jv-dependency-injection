@@ -1,9 +1,7 @@
 package mate.academy.lib;
 
-import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.Map;
-
 import mate.academy.service.FileReaderService;
 import mate.academy.service.ProductParser;
 import mate.academy.service.ProductService;
