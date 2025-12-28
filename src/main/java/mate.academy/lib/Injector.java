@@ -1,6 +1,7 @@
 package mate.academy.lib;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 import mate.academy.service.FileReaderService;
 import mate.academy.service.ProductParser;
@@ -18,6 +19,8 @@ public class Injector {
             ProductService.class, ProductServiceImpl.class
     );
 
+    private final Map<Class<?>, Object> instances = new HashMap<>();
+
     public static Injector getInjector() {
         return injector;
     }
@@ -28,6 +31,10 @@ public class Injector {
                 ? interfaceImplementations.get(interfaceClazz)
                 : interfaceClazz;
 
+        if(instances.containsKey(clazz)) {
+            return instances.get(clazz);
+        }
+
         if (!clazz.isAnnotationPresent(Component.class)) {
             throw new RuntimeException("Klasa " + clazz.getName() + "niema adnotacji @Component");
         }
@@ -35,6 +42,7 @@ public class Injector {
         Object instance = null;
         try {
             instance = clazz.getDeclaredConstructor().newInstance();
+            instances.put(clazz, instance);
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Nie udało sie znależć obiektu klasy " + clazz.getName(), e);
         }
@@ -49,7 +57,7 @@ public class Injector {
                 try {
                     field.set(instance, fieldInstance);
                 } catch (IllegalAccessException e) {
-                    throw new RuntimeException("Nie udało sie wstrzyknąć zależności!");
+                    throw new RuntimeException("Nie udało sie wstrzyknąć zależności!", e);
                 }
             }
         }
