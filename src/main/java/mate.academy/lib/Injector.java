@@ -1,13 +1,14 @@
 package mate.academy.lib;
 
+import java.io.FileReader;
+import java.lang.reflect.Field;
+import java.util.Map;
 import mate.academy.service.ProductParser;
 import mate.academy.service.ProductService;
 import mate.academy.service.impl.FileReaderServiceImpl;
 import mate.academy.service.impl.ProductParserImpl;
 import mate.academy.service.impl.ProductServiceImpl;
-import java.io.FileReader;
-import java.lang.reflect.Field;
-import java.util.Map;
+
 
 public class Injector {
     private static final Injector injector = new Injector();
@@ -29,8 +30,7 @@ public class Injector {
                 : interfaceClazz;
 
         if (!clazz.isAnnotationPresent(Component.class)) {
-            throw new RuntimeException
-                    ("Klasa" + clazz.getName() + "niema adnotacji @Component");
+            throw new RuntimeException("Klasa " + clazz.getName() + "niema adnotacji @Component");
         }
 
         Object instance = null;
